@@ -7,7 +7,7 @@
     "start": "nodemon src/app.js",
     "lint": "eslint src tests",
     "test": "mocha --reporter spec --timeout 5000",
-    "import": "./mocks/import.sh"
+    "import": "./scripts/import.sh"
   },
   "author": "",
   "license": "ISC",

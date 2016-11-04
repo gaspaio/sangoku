@@ -43,15 +43,10 @@
       .slider {
         width: 75px;
         float: left;
-        padding-top: 18px;
+        padding-top: 13px;
 
-        .rc-slider {
-          background-color: darken($headerTextColor, 30%)
-        }
-
-        .rc-slider,
-        .rc-slider-track,
-        .rc-slider-step {
+        .rc-slider-rail {
+          background-color: darken($headerTextColor, 30%);
           height: 2px;
         }
 
@@ -67,6 +62,7 @@
 
         .rc-slider-track {
           background-color: $highlightColor;
+          height: 3px;
         }
       }
     }
@@ -77,23 +73,18 @@
     font-size: 11px;
 
     .slider {
-      padding-top: 8px;
+      padding-top: 4px;
 
       .slider-container {
         margin: 0 10px;
       }
 
-      .rc-slider {
-        background-color: darken($headerTextColor, 30%)
-      }
-
-      .rc-slider,
-      .rc-slider-track,
-      .rc-slider-step {
+      .rc-slider-rail {
+        background-color: darken($headerTextColor, 30%);
         height: 2px;
       }
 
-      .rc-slider-handle {
+     .rc-slider-handle {
         border-radius: 0;
         width: 2px;
         border: 0px;
@@ -105,6 +96,7 @@
 
       .rc-slider-track {
         background-color: $highlightColor;
+        height: 3px;
       }
     }
 
