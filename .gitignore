@@ -6,8 +6,5 @@ npm-debug.log
 dist
 coverage
 
-/react-redux-starter-kit
-/react-audio-component
-/hackathon-starter
 /client/mocks/musicfiles
 
