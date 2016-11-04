@@ -1,0 +1,16 @@
+{
+  "extends": [
+    "standard"
+  ],
+  "plugins": [
+    "promise"
+  ],
+  "env": {},
+  "globals": {},
+  "rules": {
+    "key-spacing": 0,
+    "max-len": [2, 120, 2],
+    "object-curly-spacing": [2, "always"],
+    "no-var": 2
+  }
+}

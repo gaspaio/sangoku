@@ -1,0 +1,10 @@
+{
+  "app": {
+    "playlist_step": 10,
+    "user_playlist_amnesia": 40
+  },
+  "pl_generator": {
+    "song_no_repeat": 30,
+    "artist_no_repeat": 2
+  }
+}

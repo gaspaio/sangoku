@@ -1,0 +1,21 @@
+@import '../../../../styles/base';
+
+#playlist-viewer {
+  tr.current {
+    font-style: italic;
+    font-weight: bold;
+    background-color: $lightGrey;
+  }
+
+  th.song-year {
+    width: 70px;
+  }
+
+  th.song-genre {
+    width: 100px;
+  }
+
+  tr.no-songs {
+    font-style: italic;
+  }
+}

@@ -1,0 +1,23 @@
+@import '../../../../styles/base';
+
+#favorites-viewer {
+    button {
+        color: $highlightColor;
+        border: 0;
+
+        &:focus { ouline: none; }
+        &:hover { color: darken($highlightColor, 20%); }
+    }
+
+    th {
+        &.heart {
+            width: 50px;
+            text-align: left;
+        }
+
+        &.fave-time {
+            width: 150px;
+            overflow: hidden;
+        }
+    }
+}

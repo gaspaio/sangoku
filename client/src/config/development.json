@@ -1,0 +1,11 @@
+{
+  "playlist_url":"http://localhost:4000/playlist",
+  "keep_old_songs": 5,
+  "request_songs_at": 5,
+  "playlist_viewer": {
+    "show_before_current": 3
+  },
+  "played_viewer": {
+    "max_played": 40
+  }
+}

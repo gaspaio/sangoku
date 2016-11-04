@@ -1,0 +1,28 @@
+/*
+Application Settings Go Here
+------------------------------------
+This file acts as a bundler for all variables/mixins/themes, so they
+can easily be swapped out without `core.scss` ever having to know.
+
+For example:
+
+@import './variables/colors';
+@import './variables/components';
+@import './themes/default';
+*/
+
+$headerColor: #000;
+$headerTextColor: #fff;
+
+$lightGrey: #ccc;
+$darkGrey: #222;
+
+$highlightColor: #c62929;
+
+.row-no-padding {
+  [class*="col-"] {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+}
+

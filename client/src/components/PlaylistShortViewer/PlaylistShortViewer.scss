@@ -1,0 +1,29 @@
+#playlist-short-viewer {
+    h3 {
+        font-size: 12px;
+        font-style: italic;
+        margin: 0;
+    }
+
+    .cover {
+        width: 35px;
+        height: 35px;
+    }
+
+    .media {
+        margin-top: 10px;
+    }
+
+    .media-body {
+        p { margin: 0 }
+
+        .title { font-size: 14px; }
+
+        .song-infos {
+            font-size: 11px;
+
+            .song-infoline-item { font-weight: 500; }
+            .song-infoline-sep { padding: 5px; }
+        }
+    }
+}

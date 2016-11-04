@@ -1,0 +1,121 @@
+@import '../../styles/base';
+
+#player-component {
+  width: 400px;
+  margin: 10px auto 0;
+
+  > .container {
+    width: 100%;
+  }
+
+  .actions-row {
+    line-height: 25px;
+    height: 35px;
+
+    button {
+      color: $headerTextColor;
+      background-color: $headerColor;
+      border: 0;
+      padding: 2px 4px;
+      font-size: 25px;
+      line-height: 25px;
+
+      &:focus { outline: none; }
+      &:hover { color: darken($headerTextColor, 40%); }
+    }
+
+    .fave > button.faved {
+        color: $highlightColor;
+
+        &:hover { color: darken($highlightColor, 20%); }
+    }
+
+    .volume {
+      text-align: left;
+      font-size: 16px;
+
+      .glyphicon {
+        display: block;
+        float: left;
+        padding-top: 11px;
+      }
+
+      .slider {
+        width: 75px;
+        float: left;
+        padding-top: 18px;
+
+        .rc-slider {
+          background-color: darken($headerTextColor, 30%)
+        }
+
+        .rc-slider,
+        .rc-slider-track,
+        .rc-slider-step {
+          height: 2px;
+        }
+
+        .rc-slider-handle {
+          border-radius: 0;
+          width: 2px;
+          border: 0px;
+          margin-left: 0;
+          background-color: $highlightColor;
+          height: 10px;
+          margin-top: -4px;
+        }
+
+        .rc-slider-track {
+          background-color: $highlightColor;
+        }
+      }
+    }
+  }
+
+  .slidertrack-row {
+    line-height: 20px;
+    font-size: 11px;
+
+    .slider {
+      padding-top: 8px;
+
+      .slider-container {
+        margin: 0 10px;
+      }
+
+      .rc-slider {
+        background-color: darken($headerTextColor, 30%)
+      }
+
+      .rc-slider,
+      .rc-slider-track,
+      .rc-slider-step {
+        height: 2px;
+      }
+
+      .rc-slider-handle {
+        border-radius: 0;
+        width: 2px;
+        border: 0px;
+        margin-left: 0;
+        background-color: $highlightColor;
+        height: 10px;
+        margin-top: -4px;
+      }
+
+      .rc-slider-track {
+        background-color: $highlightColor;
+      }
+    }
+
+    .current {
+      text-align: right;
+    }
+
+    .total {
+      text-align: left;
+    }
+
+  }
+}
+
