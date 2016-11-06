@@ -32,7 +32,7 @@ const getViewedRows = (playlist, current) => {
 
 export const PlaylistShortViewer = props => {
   if (!props.current) {
-    return <div id='playlist-short-viewer'></div>
+    return <div id='playlist-short-viewer' />
   }
 
   return (

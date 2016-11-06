@@ -35,27 +35,94 @@ module.exports.create = (user, songs) => {
 }
 
 /*
- * Dirty version ...
+ * Filter candidates
  */
-module.exports.generate = (currentPlaylist, catalog, n) => {
-  const played = currentPlaylist.slice(-config.song_no_repeat)
-  let candidates = catalog.map(x => x.id)
+
+/*
+ * Filter out all songs that are present in the user's past playlist
+ */
+const filterSongNorepeat = (candidates, played, settings) => {
+  const playedIds = played.map(x => x.id)
+  return candidates.filter(x => playedIds.indexOf(x.id) === -1)
+}
+
+// filter_artist_no_repeat
+const filterArtistNorepeat = (candidates, played, settings) => {
+  const playedArtists = played.slice(-config.artist_no_repeat).map(x => x.artist)
+  return candidates.filter(x => playedArtists.indexOf(x.artist) === -1)
+}
+
+/*
+ * Balance genres
+ * - all genres should have equal probability regardless of catalog genre distribution
+ */
+const filterGenreBalance = (candidates, played, settings) => {
+  // Choose a genre
+  const genre = config.genres[randIntInc(0, config.genres.length - 1)]
+  return candidates.filter(x => x.genre === genre)
+}
+
+// filter_epoch
+const filterEpochBalance = (candidates, played, settings) => {
+  // Get different decades
+
+  const getSongEpoch = s => Math.floor(s.year / 10) * 10
+  const ds = new Set(candidates.map(getSongEpoch))
+
+  // Remove last song epoch: don't repeat songs from same epoch in a row
+  if (played.length) {
+    ds.delete(getSongEpoch(played[played.length - 1]))
+  }
+
+  const epoch = [...ds][randIntInc(0, ds.size - 1)]
+
+  return candidates.filter(x => getSongEpoch(x) === epoch)
+}
+
+/**
+ * Generate new songs to append to playlist from context.
+ *
+ * @param {array[Song]} playedSongs - Ordered list of song model objects, in played order.
+ *                                    Should NOT already be truncated for amnesia
+ * @param {array[Song]} songCatalog - All available song model objects.
+ * @param {object} settings - user specific settings
+ * @param {number} n - number of new songs to generate.
+ * @return {array[Song]} Ordered list of song model objects.
+ */
+module.exports.generate = (playedSongs, songCatalog, settings, n) => {
+  const candidateFilters = [
+    filterSongNorepeat,
+    filterArtistNorepeat,
+    filterGenreBalance,
+    filterEpochBalance
+  ]
+
+  const applyFilter = (songs, filter) => {
+    const filteredSongs = filter(songs, played, settings)
+
+    // If after filtering there are no songs to choose from, ignore this filter
+    if (!filteredSongs.length) {
+      console.log('Filter ', filter.name, ' emptied the candidate list. Ignoring ... ')
+      return songs
+    }
+
+    return filteredSongs
+  }
+
+  const played = playedSongs.slice(-config.played_amnesia)
   const ret = []
 
-  for (let v, itCandidates, i = 0; i < n; i++) {
-    if (played.length > config.song_no_repeat) played.shift()
+  for (let v, candidates, i = 0; i < n; i++) {
+    // Reduce candidate song listing using the filters
+    candidates = candidateFilters.reduce(applyFilter, songCatalog)
 
-    // Remove played samples from candidates
-    itCandidates = candidates.filter(x => played.indexOf(x) === -1)
+    // Random choose one song from remaining candidates
+    v = randIntInc(0, candidates.length - 1)
+    ret.push(candidates[v])
 
-    // If there are not enough samples, return what we can draw.
-    if (!itCandidates.length) break
-
-    v = randIntInc(0, itCandidates.length - 1)
-    ret.push(itCandidates[v])
-
-    // Recompute the played list
-    played.push(itCandidates[v])
+    // Update the played list
+    played.push(candidates[v])
+    if (played.length > config.played_amnesia) played.shift()
   }
 
   return ret

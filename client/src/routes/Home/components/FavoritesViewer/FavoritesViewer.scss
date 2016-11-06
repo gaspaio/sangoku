@@ -19,5 +19,10 @@
             width: 150px;
             overflow: hidden;
         }
+
+        &.song-album,
+        &.song-artist {
+            width: 250px;
+        }
     }
 }

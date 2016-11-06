@@ -7,6 +7,7 @@ const schema = new mongoose.Schema({
   cover: { type: String },
   artist: { type: String, required: true },
   album: { type: String, required: true },
+  genre: { type: String, required: true },
   year: {
     type: Number,
     required: true,

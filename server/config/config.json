@@ -4,7 +4,10 @@
     "user_playlist_amnesia": 40
   },
   "pl_generator": {
+    "genres": ["rock", "jazz", "rnb-hiphop"],
+    "decades": [1920, 2010],
+    "played_amnesia": 30,
     "song_no_repeat": 30,
-    "artist_no_repeat": 2
+    "artist_no_repeat": 10
   }
 }

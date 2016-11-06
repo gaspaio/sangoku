@@ -15,6 +15,11 @@
     width: 100px;
   }
 
+  th.song-album,
+  th.song-artist {
+    width: 300px;
+  }
+
   tr.no-songs {
     font-style: italic;
   }

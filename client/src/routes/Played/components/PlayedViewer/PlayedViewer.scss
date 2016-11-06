@@ -1,6 +1,6 @@
 @import '../../../../styles/base';
 
-#playlist-viewer {
+#played-viewer {
   tr.current {
     font-style: italic;
     font-weight: bold;
@@ -13,6 +13,11 @@
 
   th.song-genre {
     width: 100px;
+  }
+
+  th.song-album,
+  th.song-artist {
+    width: 300px;
   }
 
   tr.no-songs {

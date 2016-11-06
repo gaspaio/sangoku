@@ -5,10 +5,10 @@ const Playlist = require('../models/Playlist')
 const plGenerator = require('../services/plGenerator')
 const config = require('../../config/config.json').app
 
-function generatePlaylist (userPlaylist, n) {
+function generatePlaylist (playedSongs, n) {
   return Song
     .find({})
-    .then(songCatalog => plGenerator.generate(userPlaylist.songs, songCatalog, n))
+    .then(songCatalog => plGenerator.generate(playedSongs, songCatalog, {}, n))
 }
 
 router.get('/playlist', (req, res, next) => {
@@ -20,15 +20,18 @@ router.get('/playlist', (req, res, next) => {
   }
   startIndex = parseInt(startIndex) || 0
 
-  let userPlaylist, realStartIndex
+  let realStartIndex, userPlaylist
 
   Playlist
     .findOne({ user })
     .then(plist => {
-      userPlaylist = plist || new Playlist({ user })
-
+      plist = plist || new Playlist({ user })
+      return plist.populate('songs').execPopulate()
+    })
+    .then(plist => {
+      userPlaylist = plist
       // generate N songs from context (current playlist) - IDs only
-      return generatePlaylist(userPlaylist, config.playlist_step)
+      return generatePlaylist(plist.songs, config.playlist_step)
     })
     .then(songs => {
       // append N songs to playlist starting from startIndex (take into account firstIndex)
@@ -42,7 +45,6 @@ router.get('/playlist', (req, res, next) => {
 
       return userPlaylist.save()
     })
-    .then(plist => plist.populate('songs').execPopulate())
     .then(plist => res.json({ startIndex, user, songs: plist.songs.slice(realStartIndex) }))
     .catch(err => next(Error(err)))
 })
