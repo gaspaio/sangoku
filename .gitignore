@@ -8,3 +8,5 @@ coverage
 
 /client/mocks/musicfiles
 /tmp
+
+.ipynb_checkpoints
