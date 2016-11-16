@@ -11,7 +11,7 @@ export const CoreLayout = ({ children }) => (
   <div id='core-layout'>
     <Header />
     <div id='player-details-container'>
-      <Grid>
+      <Grid className='fixed'>
         <Row>
           <Col sm={8}>
             <PlayerDetails />
@@ -22,7 +22,7 @@ export const CoreLayout = ({ children }) => (
         </Row>
       </Grid>
     </div>
-    <div id='core-layout-content' className='container'>
+    <div id='core-layout-content' className='container fixed'>
       <Nav bsStyle='tabs'>
         <IndexLinkContainer to={{ pathname: '/' }}><NavItem>Favorites</NavItem></IndexLinkContainer>
         <LinkContainer to={{ pathname: '/played' }}><NavItem>Played songs</NavItem></LinkContainer>

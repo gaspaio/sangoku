@@ -7,6 +7,8 @@ const logger = require('morgan')
 const mongoose = require('mongoose')
 
 const apiRoutes = require('./routes/api')
+const logger = require('./services/logger')
+
 require('colors')
 require('dotenv').config()
 

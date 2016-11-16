@@ -1,5 +1,8 @@
 {
   "app": {
+    "logger": {
+      "level": "debug"
+    },
     "playlist_step": 10,
     "user_playlist_amnesia": 40
   },
