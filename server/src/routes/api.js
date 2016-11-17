@@ -3,7 +3,7 @@ const router = express.Router()
 const Song = require('../models/Song')  // eslint-disable-line no-unused-vars
 const Playlist = require('../models/Playlist')
 const plGenerator = require('../services/plGenerator')
-const config = require('../../config/config.json').app
+const config = require('../services/configurator').getConfig().app
 
 function generatePlaylist (playedSongs, n) {
   return Song

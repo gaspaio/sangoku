@@ -1,4 +1,4 @@
-const config = require('../../config/config.json').pl_generator
+const config = require('../services/configurator').getConfig().pl_generator
 
 // On renvoie un entier aléatoire entre une valeur min (incluse)
 // et une valeur max (incluse).
