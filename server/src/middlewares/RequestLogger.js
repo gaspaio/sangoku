@@ -1,6 +1,6 @@
 const onHeaders = require('on-headers')
 const onFinished = require('on-finished')
-const logger = require('../services/logger')
+const logger = require('../services/logger').default
 
 module.exports = () => {
   return function (req, res, next) {

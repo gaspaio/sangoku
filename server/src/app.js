@@ -4,10 +4,8 @@ const compression = require('compression')
 const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
 const apiRoutes = require('./routes/api')
-const logger = require('./services/logger')
+const logger = require('./services/logger').default
 const requestLogger = require('./middlewares/RequestLogger')
-
-require('colors')
 
 const app = express()
 const config = require('./services/configurator').getConfig()
@@ -15,10 +13,10 @@ const config = require('./services/configurator').getConfig()
 mongoose.Promise = global.Promise
 mongoose.connect(config.app.mongodb)
 mongoose.connection.on('connected', () => {
-  logger.info(`MongoDB connection ${'ok'.green}.`)
+  logger.info('MongoDB connection ok')
 })
 mongoose.connection.on('error', err => {
-  logger.error(`Mongo connection error - ${err.toString().red}`)
+  logger.error(`Mongo connection error - ${err.toString()}`)
   process.exit(1)
 })
 
@@ -43,5 +41,5 @@ if (config.env === 'development') {
 }
 
 app.listen(config.app.server.port, () => {
-  logger.info(`Sangoku server listening on port ${config.app.server.port.toString().green} in ${config.env.green} env`)
+  logger.info(`Sangoku server listening on port ${config.app.server.port.toString()} in ${config.env} env`)
 })

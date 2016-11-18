@@ -1,7 +1,12 @@
 {
   "app": {
     "logger": {
-      "level": "debug"
+      "level": "debug",
+      "elasticsearch": {
+        "on": true,
+        "index_default": "shiva-default",
+        "index_actions": "shiva-actions"
+      }
     },
     "playlist_step": 10,
     "user_playlist_amnesia": 40

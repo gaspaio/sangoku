@@ -10,6 +10,7 @@ module.exports.init = () => {
   config.app.mongodb = process.env.MONGODB_URI
   config.app.server = { port: process.env.SERVER_PORT }
   config.app.logger.level = process.env.LOGGER_LEVEL
+  config.app.logger.elasticsearch.host = process.env.ELASTICSEARCH
 
   return config
 }
