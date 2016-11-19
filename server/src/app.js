@@ -4,7 +4,7 @@ const compression = require('compression')
 const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
 const apiRoutes = require('./routes/api')
-const logger = require('./services/logger').default
+const logging = require('./services/logging')
 const requestLogger = require('./middlewares/RequestLogger')
 
 const app = express()
@@ -13,10 +13,10 @@ const config = require('./services/configurator').getConfig()
 mongoose.Promise = global.Promise
 mongoose.connect(config.app.mongodb)
 mongoose.connection.on('connected', () => {
-  logger.info('MongoDB connection ok')
+  logging.log('info', 'MongoDB connection ok')
 })
 mongoose.connection.on('error', err => {
-  logger.error(`Mongo connection error - ${err.toString()}`)
+  logging.log('error', `Mongo connection error - ${err.toString()}`)
   process.exit(1)
 })
 
@@ -41,5 +41,5 @@ if (config.env === 'development') {
 }
 
 app.listen(config.app.server.port, () => {
-  logger.info(`Sangoku server listening on port ${config.app.server.port.toString()} in ${config.env} env`)
+  logging.log('info', `Sangoku server listening on port ${config.app.server.port.toString()} in ${config.env} env`)
 })

@@ -3,9 +3,7 @@
     "logger": {
       "level": "debug",
       "elasticsearch": {
-        "on": true,
-        "index_default": "shiva-default",
-        "index_actions": "shiva-actions"
+        "on": false
       }
     },
     "playlist_step": 10,

@@ -1,6 +1,6 @@
 const onHeaders = require('on-headers')
 const onFinished = require('on-finished')
-const logger = require('../services/logger').default
+const logging = require('../services/logging')
 
 module.exports = () => {
   return function (req, res, next) {
@@ -11,8 +11,15 @@ module.exports = () => {
     res._startTime = undefined
 
     function logRequest () {
-      const [msg, meta] = buildLogItem(req, res)
-      logger.info(msg, meta)
+      const info = buildRequestInfo(req, res)
+
+      logging.log(
+        'info',
+        `${info.method} ${info.url} ${info.status} ${info.responseTime} ms`,
+        '-',
+        logging.cs.EVENT_REQUEST,
+        info
+      )
     }
 
     recordStartTime.call(req)
@@ -25,7 +32,7 @@ module.exports = () => {
   }
 }
 
-function buildLogItem (req, res) {
+function buildRequestInfo (req, res) {
   const status = res._header ? res.statusCode : undefined
   const method = req.method
   const url = req.originalUrl || req.url
@@ -34,10 +41,7 @@ function buildLogItem (req, res) {
   const remoteIp = req._remoteAddress
   const userAgent = req.headers['user-agent']
 
-  return [
-    `${req.method} ${url} ${status} ${responseTime} ms`,
-    { 'type': 'request', status, method, url, referer, responseTime, remoteIp, userAgent }
-  ]
+  return { status, method, url, referer, responseTime, remoteIp, userAgent }
 }
 
 function computeResponseTime (req, res, digits) {
