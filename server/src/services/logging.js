@@ -15,6 +15,7 @@ const cs = {
   EVENT_REQUEST: 'request',
   EVENT_PLGEN: 'plgen',
   EVENT_SYSTEM: 'system',
+  EVENT_CLIENT_ERROR: 'client_error',
   LOG_TYPE_ACTION: 'action',
   LOG_TYPE_EVENT: 'event'
 }
@@ -67,13 +68,10 @@ logger.on('error', err => console.error('Logger Default error:', err))
 module.exports.logger = logger
 module.exports.cs = cs
 module.exports.log = (level, message, user = '-', event = cs.EVENT_SYSTEM, fields = {}) => {
-  const data = Object.assign({}, fields)
+  const data = Object.assign({ timestamp: Date.now() }, fields)
 
-  let timestamp = Date.now()
-  if (data['timestamp']) {
-    timestamp = data['timestamp']
-    delete data['timestamp']
-  }
+  const timestamp = data['timestamp']
+  delete data['timestamp']
 
   const meta = { user, type: getType(event), event, timestamp, data }
   this.logger.log(level, message, meta)

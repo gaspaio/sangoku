@@ -29,6 +29,10 @@ app.use((req, res, next) => {
   next()
 })
 
+app.use((req, res, next) => {
+  req.userId = req.headers['x-user'] ? req.headers['x-user'] : null
+  next()
+})
 app.use('/', apiRoutes)
 
 app.use(function (req, res) {
