@@ -3,6 +3,7 @@ import thunk from 'redux-thunk'
 import { browserHistory } from 'react-router'
 import persistState from 'redux-localstorage'
 import makeRootReducer from './reducers'
+import { loggerMiddleware } from './middlewares'
 import { updateLocation } from './location'
 import { toJS as playerStateToJS, fromJS as playerStateFromJS } from '../modules/player/reducer'
 import { fromJS as userStateFromJS } from '../modules/user/reducer'
@@ -31,7 +32,7 @@ export default (initialState = {}) => {
   // ======================================================
   // Middleware Configuration
   // ======================================================
-  const middleware = [thunk]
+  const middleware = [thunk, loggerMiddleware]
 
   // ======================================================
   // Store Enhancers

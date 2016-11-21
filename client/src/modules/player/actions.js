@@ -20,7 +20,8 @@ export const initPlayer = (user, playerState) => {
 
   // Update playlist
   return dispatch => getPlaylist(
-      { user: user, startIndex: 0 },
+      user,
+      { startIndex: 0 },
       json => dispatch({
         type: PLAYER_INIT,
         payload: { user: json.user, startIndex: json.startIndex, songs: json.songs }
@@ -39,7 +40,8 @@ function onNextSong (playerAction) {
     if (lastIndex - state.player.current > config.request_songs_at) return
 
     getPlaylist(
-      { user: state.user.id, startIndex: lastIndex + 1 },
+      state.user.id,
+      { startIndex: lastIndex + 1 },
       json => dispatch({
         type: PLAYER_UPDATE_PLAYLIST,
         payload: { user: json.user, startIndex: json.startIndex, songs: json.songs }
@@ -48,9 +50,9 @@ function onNextSong (playerAction) {
   }
 }
 
-function getPlaylist (queryparams, cb) {
+function getPlaylist (user, queryparams, cb) {
   const url = `${config.playlist_url}?${qs.stringify(queryparams)}`
-  return fetch(url)
+  return fetch(url, { 'headers': { 'x-user': user } })
     .then(res => res.json())
     .then(cb)
     .catch(err => console.error(err))
