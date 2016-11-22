@@ -71,7 +71,7 @@ router.get('/playlist', (req, res, next) => {
 })
 
 router.put('/log', (req, res, next) => {
-  if (!req.headers['x-user']) {
+  if (!req.userId) {
     next(Error('No userid provided.'))
     return
   }

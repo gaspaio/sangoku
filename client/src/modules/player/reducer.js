@@ -4,6 +4,7 @@ import config from '../../config/development.json'
 
 const initialState = {
   current: null,
+  time: 0,
   playlist: Immutable.OrderedMap(),
   played: Immutable.List()
 }
@@ -48,6 +49,9 @@ export default function reducer (state = initialState, action) {
         .skipUntil((v, k) => k >= state.current - 3)
 
       return { ...state, playlist: newPlaylist }
+
+    case Actions.PLAYER_TIME_UPDATE:
+      return { ...state, time: action.payload }
 
     default:
       return state

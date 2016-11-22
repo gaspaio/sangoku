@@ -15,6 +15,7 @@ export default class Player extends React.Component {
     onPlay: React.PropTypes.func.isRequired,
     onSkip: React.PropTypes.func.isRequired,
     onEnded: React.PropTypes.func.isRequired,
+    onTimeUpdate: React.PropTypes.func.isRequired,
     fave: React.PropTypes.func.isRequired,
     unfave: React.PropTypes.func.isRequired
   }
@@ -56,6 +57,7 @@ export default class Player extends React.Component {
         volume: this.refs.audio.volume,
         duration: this.refs.audio.duration
       })
+      this.props.onTimeUpdate(this.refs.audio.position * this.refs.audio.duration)
     }
   }
 
@@ -87,6 +89,11 @@ export default class Player extends React.Component {
     this.setState({ ...this.state, isPlaying: false })
   }
 
+  updatePositionState = (pos) => {
+    this.setState({ ...this.state, position: pos })
+    this.props.onTimeUpdate(pos * this.refs.audio.duration)
+  }
+
   reset = () => {
     this.setState({ ...this.state, position: 0, duration: 0, isPlaying: false })
   }
@@ -107,14 +114,14 @@ export default class Player extends React.Component {
 
   handleUpdatePosition = pos => {
     this.refs.audio.position = pos / 100
-    this.setState({ ...this.state, position: this.refs.audio.position })
+    this.updatePositionState(this.refs.audio.position)
   }
 
   /*
    * Audio event handlers
    */
   handleAudioTimeupdate = () => {
-    this.setState({ ...this.state, position: this.refs.audio.position })
+    this.updatePositionState(this.refs.audio.position)
   }
 
   handleAudioLoadedmetadata = () => {

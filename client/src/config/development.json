@@ -1,5 +1,5 @@
 {
-  "playlist_url":"http://localhost:4000/playlist",
+  "server_url":"http://localhost:4000",
   "keep_old_songs": 5,
   "request_songs_at": 5,
   "playlist_viewer": {

@@ -7,10 +7,12 @@ export const PLAYER_SKIP = 'PLAYER_SKIP'
 export const PLAYER_ENDED = 'PLAYER_ENDED'
 export const PLAYER_PLAY = 'PLAYER_PLAY'
 export const PLAYER_UPDATE_PLAYLIST = 'PLAYER_UPDATE_PLAYLIST'
+export const PLAYER_TIME_UPDATE = 'PLAYER_TIME_UPDATE'
 
 export const onSkip = () => { return onNextSong({ type: PLAYER_SKIP }) }
 export const onEnded = () => { return onNextSong({ type: PLAYER_ENDED }) }
 export const onPlay = key => { return { type: PLAYER_PLAY, payload: key } }
+export const onTimeUpdate = time => { return { type: PLAYER_TIME_UPDATE, payload: time } }
 
 export const initPlayer = (user, playerState) => {
   // We already have a playlist in store
@@ -51,7 +53,7 @@ function onNextSong (playerAction) {
 }
 
 function getPlaylist (user, queryparams, cb) {
-  const url = `${config.playlist_url}?${qs.stringify(queryparams)}`
+  const url = `${config.server_url}/playlist?${qs.stringify(queryparams)}`
   return fetch(url, { 'headers': { 'x-user': user } })
     .then(res => res.json())
     .then(cb)
